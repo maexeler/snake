@@ -7,6 +7,7 @@ class SnakeConfigPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var prortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
     return Scaffold(
       appBar: AppBar(
         title: Text('Snake Configuration'),
@@ -14,12 +15,18 @@ class SnakeConfigPage extends ConsumerWidget {
       ),
       body: Container(
         padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SizeForm(),
-            VelocityForm(),
-          ],
-        ),
+        child: prortrait
+            ? Column(children: [
+                SizeForm(),
+                VelocityForm(),
+              ])
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(child: SizeForm()),
+                  Expanded(child: VelocityForm()),
+                ],
+              ),
       ),
     );
   }
@@ -58,7 +65,7 @@ class VelocityCheckbox extends ConsumerWidget {
       value: actual == velocity,
       controlAffinity: ListTileControlAffinity.leading,
       onChanged: (bool? value) {
-        ref.read(gameVelocityProvider.notifier).velocity = velocity;
+        ref.read(gameVelocityProvider.notifier).velocity(velocity);
       },
       title: Text(title),
     );
@@ -97,7 +104,7 @@ class SizeCheckbox extends ConsumerWidget {
       value: actual == size,
       controlAffinity: ListTileControlAffinity.leading,
       onChanged: (bool? value) {
-        ref.read(gameSizeProvider.notifier).size = size;
+        ref.read(gameSizeProvider.notifier).size(size);
       },
       title: Text(title),
     );

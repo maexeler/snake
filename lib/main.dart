@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snake/snake/game/game_config.dart';
 
 import 'pages/snake_game_start_page.dart';
 import 'provider/provider_container.dart';
@@ -7,6 +8,11 @@ import 'snake/game/game_command.dart';
 import 'snake/game/snake_game.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Initialize from SharedPreferences
+  providerContainer.read(gameSizeProvider.notifier).load();
+  providerContainer.read(gameVelocityProvider.notifier).load();
+
   // Create the game
   SnakeGame snakeGame = SnakeGame();
   // and connect it to a [GameCommandReceiver]
@@ -14,12 +20,14 @@ void main() {
     snakeGame.processGameCommand(state);
   });
 
-  runApp(ProviderScope(
-    // We are initialized and ready. Let's serve the world
-    overrides: [snakeGameProvider.overrideWith((ref) => snakeGame)],
-    parent: providerContainer,
-    child: SnakeApp(),
-  ));
+  runApp(
+    ProviderScope(
+      // We are initialized and ready. Let's serve the world
+      overrides: [snakeGameProvider.overrideWith((ref) => snakeGame)],
+      parent: providerContainer,
+      child: SnakeApp(),
+    ),
+  );
 }
 
 class SnakeApp extends StatelessWidget {

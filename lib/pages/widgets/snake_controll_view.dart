@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snake/snake/game/game_command.dart';
@@ -16,11 +15,11 @@ class SnakeControllWidget extends ConsumerWidget {
     return SizedBox(
       width: width,
       height: double.infinity,
-      child: GestureDetector(
+      child: Listener(
         behavior: HitTestBehavior.opaque,
-        onTapDown: (details) {
+        onPointerMove: (PointerEvent details) {
           RenderBox rb = context.findRenderObject() as RenderBox;
-          processTap(rb.size, details, ref);
+          processTap(rb.size, details.localPosition, ref);
         },
         child: Container(
           color: bgColor,
@@ -34,28 +33,28 @@ class SnakeControllWidget extends ConsumerWidget {
     );
   }
 
-  void processTap(Size size, TapDownDetails details, WidgetRef ref) {
+  void processTap(Size size, Offset localPosition, WidgetRef ref) {
     final gameCommandReciver = ref.read(gameCommandReciverProvider);
     final y = size.height / 2;
     final l = size.shortestSide / 3;
 
     Rect hitRect = Rect.fromLTWH(0, y - l / 2, l, l);
-    if (hitRect.contains(details.localPosition)) {
+    if (hitRect.contains(localPosition)) {
       gameCommandReciver.setMoveDirection(MoveDirection.west);
       return;
     }
     hitRect = Rect.fromLTWH(l, y - 3 / 2 * l, l, l);
-    if (hitRect.contains(details.localPosition)) {
+    if (hitRect.contains(localPosition)) {
       gameCommandReciver.setMoveDirection(MoveDirection.north);
       return;
     }
     hitRect = Rect.fromLTWH(2 * l, y - l / 2, l, l);
-    if (hitRect.contains(details.localPosition)) {
+    if (hitRect.contains(localPosition)) {
       gameCommandReciver.setMoveDirection(MoveDirection.east);
       return;
     }
     hitRect = Rect.fromLTWH(l, y + l / 2, l, l);
-    if (hitRect.contains(details.localPosition)) {
+    if (hitRect.contains(localPosition)) {
       gameCommandReciver.setMoveDirection(MoveDirection.south);
       return;
     }

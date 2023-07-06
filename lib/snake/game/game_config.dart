@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum GameVelocity { slow, easy, difficult, fast }
 
@@ -9,8 +10,9 @@ class VelocityProvider extends Notifier<GameVelocity> {
   @override
   GameVelocity build() => GameVelocity.easy;
 
-  set velocity(GameVelocity velocity) {
+  void velocity(GameVelocity velocity) {
     state = velocity;
+    save();
   }
 
   int get msForTimer {
@@ -38,6 +40,16 @@ class VelocityProvider extends Notifier<GameVelocity> {
         return calories * 10;
     }
   }
+
+  void save() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('velocity', state.index);
+  }
+
+  void load() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    state = GameVelocity.values[prefs.getInt('velocity') ?? 1];
+  }
 }
 
 enum GameSize { small, normal, big }
@@ -49,8 +61,9 @@ class SizeProvider extends Notifier<GameSize> {
   @override
   GameSize build() => GameSize.normal;
 
-  set size(GameSize size) {
+  void size(GameSize size) {
     state = size;
+    save();
   }
 
   int get gameSize {
@@ -62,5 +75,15 @@ class SizeProvider extends Notifier<GameSize> {
       case GameSize.big:
         return 20;
     }
+  }
+
+  void save() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('gameSize', state.index);
+  }
+
+  void load() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    state = GameSize.values[prefs.getInt('gameSize') ?? 1];
   }
 }
