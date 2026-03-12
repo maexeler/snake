@@ -1,4 +1,4 @@
-import 'dart:async';
+/*
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,3 +36,4 @@ class TiltRecognizer extends Notifier<MoveDirection> {
     return MoveDirection.none;
   }
 }
+*/

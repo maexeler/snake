@@ -22,25 +22,27 @@ class _SnakeGamePageState extends ConsumerState<SnakeGamePage> {
     return Scaffold(
       body: Container(
         color: bgColor,
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(child: SnakeScoreView()),
-                  SnakeCommandView(),
-                ],
-              ),
-            ),
-            SnakeGameViewWidget(
-                // bgColor: Colors.black,
+        child: SafeArea(
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: SnakeScoreView()),
+                    SnakeCommandView(),
+                  ],
                 ),
-            SnakeControllWidget(
-              width: 200,
-              // bgColor: Colors.black,
-            ),
-          ],
+              ),
+              SnakeGameViewWidget(
+                // bgColor: Colors.black,
+              ),
+              SnakeControllWidget(
+                width: 200,
+                // bgColor: Colors.black,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -50,9 +52,7 @@ class _SnakeGamePageState extends ConsumerState<SnakeGamePage> {
   void initState() {
     super.initState();
     // Game is always in landscape mode
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
   }
 
   @override

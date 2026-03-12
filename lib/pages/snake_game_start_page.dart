@@ -26,24 +26,26 @@ class SnakeGameStartPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        color: Colors.black,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              SnakeHeader(),
-              Expanded(child: Text('gaga')),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(child: Text('')),
-                  Expanded(child: SnakeStart()),
-                  Expanded(child: Text('')),
-                ],
-              )
-            ],
+      body: SafeArea(
+        child: Container(
+          color: Colors.black,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                SnakeHeader(),
+                Expanded(child: Text('gaga')),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(child: Text('')),
+                    Expanded(child: SnakeStart()),
+                    Expanded(child: Text('')),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -86,9 +88,9 @@ class SnakeStart extends ConsumerWidget {
         ref.read(gameCommandReciverProvider).newGame();
         ref.read(actualMoveDirectionProvider.notifier).direction =
             MoveDirection.none;
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const SnakeGamePage()),
-        );
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (context) => const SnakeGamePage()));
       },
       child: AsciiArt(
         '''

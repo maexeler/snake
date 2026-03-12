@@ -40,10 +40,7 @@ class SnakeCommandView extends ConsumerWidget {
                         MoveDirection.none;
                   },
                 ),
-          SizedBox(
-            height: 24,
-            child: Container(),
-          ),
+          SizedBox(height: 24, child: Container()),
         ],
       ),
     );
@@ -53,16 +50,19 @@ class SnakeCommandView extends ConsumerWidget {
 class GameCommandButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onPressed;
-  const GameCommandButton(
-      {required this.icon, required this.onPressed, super.key});
+  const GameCommandButton({
+    required this.icon,
+    required this.onPressed,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16),
       child: CircleAvatar(
-        // radius: 32,
         child: IconButton(
+          color: Colors.green,
           onPressed: onPressed,
           icon: Icon(icon),
         ),

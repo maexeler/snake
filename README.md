@@ -1,16 +1,15 @@
-# snake
+# Retro Snake
 
-A new Flutter project.
+## Motivation
 
-## Getting Started
+I was a little bit bored while teaching Flutter App developement.  
+So I decided to implement a retro style Snake game to try out [Flutter Riverpod](https://pub.dev/packages/flutter_riverpod)
 
-This project is a starting point for a Flutter application.
+## Instructions
 
-A few resources to get you started if this is your first Flutter project:
+When you have enough level points a door will open in the wall and you have to move through it to reach the next level.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## The Code
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The code is copyrighted by ©Max Werner 2024.  
+You can use the code for anything you want, as long as you don't use it along with ads, tracking, or analytics.  
